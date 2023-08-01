@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <%-include ("partials/head.ejs") %>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+            body {
+                background-image: url("https://giffiles.alphacoders.com/212/212350.gif");
+                background-size: 100%;
+                background-position: -400px 100px;
+            }
+
+            #app {}
+
+            .gameform {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                width: 600px;
+                margin: auto;
+                padding: 10px 0;
+            }
+
+            .gameItem {
+                position: relative;
+                width: 20%;
+                display: block;
+                border: 2px solid #ddd;
+                border-radius: 50%;
+                box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+                margin: 10px;
+                text-align: center;
+                background-image: url("https://seeklogo.com/images/P/pokeball-logo-DC23868CA1-seeklogo.com.png");
+                background-size: cover;
+            }
+
+            .img-fluid {
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .gameItem:hover {
+                animation: ring 1s infinite ease-in-out
+            }
+
+            .bgrhidden {
+                background: #ffffffbe;
+                animation: none !important;
+            }
+
+            .ismatched {
+                background-color: #00ba00;
+                border-color: #00ba00;
+                animation: none !important;
+            }
+
+            .unmatched {
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
+
+            .infoGame {}
+
+            #stopwatch,
+            #totalMatched,
+            #namePlayer {
+                margin-top: 20px;
+            }
+
+            .fontPress {
+                font-family: 'Press Start 2P', cursive;
+                color: #fff;
+            }
+
+            #namePlayer {
+                line-height: 50px;
+            }
+
+            button {
+                border: none;
+                background: none;
+            }
+
+            @keyframes ring {
+                0% {
+                    transform: rotate(0) scale(1) skew(1deg)
+                }
+
+                10% {
+                    transform: rotate(-25deg) scale(1) skew(1deg)
+                }
+
+                20% {
+                    transform: rotate(25deg) scale(1) skew(1deg)
+                }
+
+                30% {
+                    transform: rotate(-25deg) scale(1) skew(1deg)
+                }
+
+                40% {
+                    transform: rotate(25deg) scale(1) skew(1deg)
+                }
+
+                50% {
+                    transform: rotate(0) scale(1) skew(1deg)
+                }
+
+                100% {
+                    transform: rotate(0) scale(1) skew(1deg)
+                }
+            }
+        </style>
+        <style>
+            .pixel {
+                font-size: 25px;
+                color: white;
+                height: auto;
+                margin: 10px;
+                font-family: 'VT323';
+                position: relative;
+                display: inline-block;
+                vertical-align: top;
+                text-transform: uppercase;
+                cursor: pointer;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            .pixel:active {
+                top: 2px;
+            }
+
+            .pixel {
+                line-height: 0;
+                image-rendering: optimizeSpeed;
+                image-rendering: -moz-crisp-edges;
+                /* Firefox */
+                image-rendering: -o-crisp-edges;
+                /* Opera */
+                image-rendering: -webkit-optimize-contrast;
+                /* Webkit (non-standard naming) */
+                image-rendering: crisp-edges;
+                -ms-interpolation-mode: nearest-neighbor;
+                /* IE (non-standard property) */
+                border-style: solid;
+                border-width: 20px;
+                -moz-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+                -webkit-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+                -o-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+                border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+            }
+
+            .pixel p {
+                display: inline-block;
+                vertical-align: top;
+                position: relative;
+                width: auto;
+                text-align: center;
+                margin: -20px -20px;
+                line-height: 20px;
+                padding: 10px 20px;
+                background: #000000;
+                background: linear-gradient(135deg, transparent 10px, #000000 0) top left, linear-gradient(225deg, transparent 10px, #000000 0) top right, linear-gradient(315deg, transparent 10px, #000000 0) bottom right, linear-gradient(45deg, transparent 10px, #000000 0) bottom left;
+                background-size: 50% 50%;
+                background-repeat: no-repeat;
+                background-image: radial-gradient(circle at 0 0, rgba(204, 0, 0, 0) 14px, #000000 15px), radial-gradient(circle at 100% 0, rgba(204, 0, 0, 0) 14px, #000000 15px), radial-gradient(circle at 100% 100%, rgba(204, 0, 0, 0) 14px, #000000 15px), radial-gradient(circle at 0 100%, rgba(204, 0, 0, 0) 14px, #000000 15px);
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+    <main class="container">
+        <header class="row">
+        </header>
+        <div id="app" style=" margin-top: 70px;" class="row">
+            <div class="infoGame col-6 fontPress">
+                <!-- <%-include ("partials/header.ejs") %> -->
+                <h3>
+                    <div id="namePlayer"></div>
+                </h3>
+                <div id="totalMatched">0/6</div>
+                <div id="stopwatch"></div>
+                <section class="row">
+                    <div class="col">
+                        <hr>
+                        <!-- <button id="reset" class="btn btn-primary">Reset Game</button>
+                        <button id="cancel" class="btn btn-danger">Cancel Game</button> -->
+                        <div id="reset" class="pixel">
+                            <p class="fontPress">Reset</p>
+                        </div>
+                        <div id="cancel" class="pixel">
+                            <p class="fontPress">Exit Game</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-6">
+                <section class="gameform" id="board">
+                </section>
+            </div>
+        </div>
+    </main>
+    <!-- <footer class="row">
+        <%-include ("partials/footer.ejs") %>
+    </footer> -->
+    <script src="assets/main.bundle.js"></script>
+    <script
+        src="assets/vendors-node_modules_autobind-decorator_lib_esm_index_js-node_modules_lodash_lodash_js-node_m-1be5c4.bundle.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <%-include ("partials/foot.ejs") %>
+
+</body>
+
+</html>

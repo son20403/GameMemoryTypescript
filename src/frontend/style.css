@@ -1,0 +1,36 @@
+.gameform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 600px;
+    margin: auto;
+    padding: 10px 0;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.gameItem {
+    position: relative;
+    width: 20%;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 5px 10px 10px #e8f5ee;
+    margin: 10px;
+    text-align: center;
+    background-image: url("https://play-lh.googleusercontent.com/MDaSgXlbRkftfjNIdJ2oHodVBVLOmVg2PevfdzJkbtlawfMA-8gMAs-kCfXXY5XyLw");
+    background-size: cover;
+}
+
+.bgrhidden {
+    background: none;
+}
+
+.ismatched {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/White_check_mark_in_dark_green_rounded_square.svg/1200px-White_check_mark_in_dark_green_rounded_square.svg.png")
+}
+
+.unmatched {
+    background-color: red;
+}
